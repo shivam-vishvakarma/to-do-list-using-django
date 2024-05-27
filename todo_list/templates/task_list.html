@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    <link rel="stylesheet" href="/static/styles1.css">
+</head>
+<body>
+    <div class="container">
+        <h1>To-Do List</h1>
+        <form class="add-task-form" method="post" action="{% url 'add_task' %}">
+            {% csrf_token %}
+            <input type="text" name="task_name" placeholder="Enter a new task" required>
+            <button type="submit" class="add-button">+</button>
+        </form>
+        <ul class="task-list">
+            {% for task in tasks %}
+            <li>
+                <span class="task-id">{{ task.count }}</span> {{ task.task_name }}
+                <a href="{% url 'delete_task' task.id %}" class="delete-link">Delete</a>
+            </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
